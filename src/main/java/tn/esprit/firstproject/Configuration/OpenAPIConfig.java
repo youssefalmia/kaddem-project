@@ -30,7 +30,7 @@ public class OpenAPIConfig {
     }
 
     public Contact contactAPI() {
-        return new Contact().name("arij").email("arij.hajji@esprit.tn").url("https://www.linkedin.com/in/arij-hajji/");
+        return new Contact().name("youssef").email("youssef.almia@esprit.tn").url("https://www.linkedin.com/in/youssef-almia-193817183/");
     }
 
     @Bean
