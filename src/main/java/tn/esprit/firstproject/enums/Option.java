@@ -1,4 +1,4 @@
-package tn.esprit.firstproject.entities;
+package tn.esprit.firstproject.enums;
 
 public enum Option {
     GAMIX,

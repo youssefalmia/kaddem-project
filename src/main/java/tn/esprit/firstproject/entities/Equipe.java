@@ -1,8 +1,8 @@
 package tn.esprit.firstproject.entities;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import tn.esprit.firstproject.enums.Niveau;
 
 import javax.persistence.*;
 import java.io.Serializable;

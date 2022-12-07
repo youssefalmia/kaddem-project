@@ -3,6 +3,8 @@ package tn.esprit.firstproject.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.firstproject.entities.Equipe;
+import tn.esprit.firstproject.services.DetailEquipeImpl;
+import tn.esprit.firstproject.services.IDetailEquipeService;
 import tn.esprit.firstproject.services.IEquipeService;
 
 import java.util.List;
@@ -12,6 +14,9 @@ import java.util.List;
 @RequestMapping("/equipe")
 public class EquipeRestController {
     private final IEquipeService iEquipeService;
+    private final IDetailEquipeService iDetailEquipeService;
+
+
     @GetMapping("/all")
     @ResponseBody
     public List<Equipe> getAllEquipes(){
@@ -19,10 +24,13 @@ public class EquipeRestController {
     }
     @PostMapping("/add")
     public Equipe addEquipe(@RequestBody Equipe equipe){
+        iDetailEquipeService.addDetailEquipe(equipe.getDetailEquipe());
         return  iEquipeService.addEquipe(equipe);
+
     }
     @PutMapping("/update")
     public Equipe updateEquipe(@RequestBody Equipe equipe){
+        iDetailEquipeService.updateDetailEquipe(equipe.getDetailEquipe());
         return iEquipeService.updateEquipe(equipe);
     }
     @GetMapping("/get/{id-equipe}")

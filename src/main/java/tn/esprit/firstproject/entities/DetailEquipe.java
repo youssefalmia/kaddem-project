@@ -1,5 +1,6 @@
 package tn.esprit.firstproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class DetailEquipe  implements Serializable {
     private Integer salle ;
     private String thematique;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "detailEquipe")
     private Equipe equipe ;
 }

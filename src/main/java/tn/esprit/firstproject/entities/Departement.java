@@ -1,7 +1,7 @@
 package tn.esprit.firstproject.entities;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +17,9 @@ public class Departement  implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDepart ;
     private String nomDepart ;
+
+    @ManyToOne
+    Universite universite;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "departement")

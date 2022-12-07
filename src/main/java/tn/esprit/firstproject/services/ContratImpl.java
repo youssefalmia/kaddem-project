@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.firstproject.entities.Contrat;
 import tn.esprit.firstproject.entities.Etudiant;
-import tn.esprit.firstproject.entities.Specialite;
+import tn.esprit.firstproject.enums.Specialite;
 import tn.esprit.firstproject.repositories.IContratRepository;
 import tn.esprit.firstproject.repositories.IEtudiantRepository;
 

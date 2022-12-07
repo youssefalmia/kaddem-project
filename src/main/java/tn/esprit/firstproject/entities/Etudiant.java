@@ -1,9 +1,9 @@
 package tn.esprit.firstproject.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import tn.esprit.firstproject.enums.Option;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,13 +18,13 @@ public class Etudiant implements Serializable {
     private Integer idEtudiant ;
     private String prenom ;
     private String nom ;
-
-/*@Enumerated(EnumType.STRING)
-private Option option ;*/
+    @Enumerated(EnumType.STRING)
+    private Option optionEtudiant ;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
     Departement departement;
+
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "etudiant")
     private Set<Contrat> contrats ;
 
