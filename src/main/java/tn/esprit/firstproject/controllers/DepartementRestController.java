@@ -33,4 +33,10 @@ public class DepartementRestController {
         return iDepartementService.updateDepartement(departement);
     }
 
+    @PutMapping("/etudiantToDep/{idDep}/{idEt}")
+    public Departement assignEtudiantToDepartement(@PathVariable("idDep") Integer idDep, @PathVariable("idEt") Integer idEt){
+        return iDepartementService.affecterEtudiant(idDep,idEt);
+
+    }
+
 }

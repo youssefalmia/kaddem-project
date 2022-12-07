@@ -2,6 +2,7 @@ package tn.esprit.firstproject.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import tn.esprit.firstproject.entities.Departement;
 import tn.esprit.firstproject.entities.Universite;
@@ -16,6 +17,9 @@ public class UniversiteImpl implements IUniversiteService{
 
     @Autowired
     private final IUniversiteRepository universiteRepository ;
+
+    @Autowired
+    DepartementImpl departementService ;
     @Autowired
     private final IDepartementRepository departementRepository;
     @Override
@@ -41,10 +45,10 @@ public class UniversiteImpl implements IUniversiteService{
 
     @Override
     public void assignUniversiteToDepartement(Integer idUniv, Integer idDep) {
-        Universite univ = universiteRepository.findById(idUniv).orElse(null) ;
-        Departement depart = departementRepository.findById(idDep).orElse(null) ;
-        univ.getDepartements().add(depart);
-        universiteRepository.save(univ);
+        Universite univ = retrieveUniversite(idUniv);
+        Departement depart = departementService.retrieveDepartement(idDep);
+        depart.setUniversite(univ);
+        updateUniversite(univ);
     }
     public List<Departement> retrieveDepartementsByUniversite(Integer idUniversite)
     {

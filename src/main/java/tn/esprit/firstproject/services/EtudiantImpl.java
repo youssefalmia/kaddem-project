@@ -25,6 +25,9 @@ public class EtudiantImpl implements IEtudiantService{
 private final IContratRepository contratRepository;
     @Autowired
     private final IEquipeRepository equipeRepository;
+
+    private final ContratImpl contratServices;
+    private final EquipeImpl equipeServices;
     @Autowired
     private final IDepartementRepository departementRepository;
     @Override
@@ -70,11 +73,17 @@ void test() {
             idEquipe)
    {
 
-       Contrat ce =  contratRepository.findById(idContrat).orElseGet(null) ;
-       Equipe eq = equipeRepository.findById(idEquipe).orElseGet(null) ;
+       Contrat ce =  contratServices.retrieveContrat(idContrat);
+       Equipe eq = equipeServices.retrieveEquipe(idEquipe);
+       //ce.setEtudiant(e);
+       //contratRepository.save(ce);
        ce.setEtudiant(e);
-       contratRepository.save(ce);
-       e.getEquipes().add(eq);
+       contratServices.updateContrat(ce);
+       eq.getEtudiants().add(e);
+       //e.getEquipes().add(eq);
+       //e.getContrats().add(ce);
+
+       equipeServices.updateEquipe(eq);
        etudiantRepository.save(e) ;
 return e;
    }
