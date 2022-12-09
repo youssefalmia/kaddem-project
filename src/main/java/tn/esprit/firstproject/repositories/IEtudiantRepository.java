@@ -18,7 +18,7 @@ public interface IEtudiantRepository extends CrudRepository<Etudiant, Integer> {
     @Query("select e from Etudiant e inner join e.departement ee where ee.nomDepart = ?1")
     List<Etudiant> findEtudiantByDepartement(String nomDep);
     @Query("select e from Etudiant e where e.prenom = ?1 and e.nom = ?2")
-    Etudiant findEtudiantByPrenomEtNom(String prenomE, String nomE);
+    List<Etudiant> findEtudiantByPrenomEtNom(String prenomE, String nomE);
     @Query("select e from Etudiant e inner join e.departement ee where ee.idDepart = ?1")
     List<Etudiant> getEtudiantsByDepartement(Integer IdDep);
 }

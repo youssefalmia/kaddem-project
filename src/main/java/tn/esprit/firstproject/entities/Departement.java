@@ -18,6 +18,7 @@ public class Departement  implements Serializable {
     private Integer idDepart ;
     private String nomDepart ;
 
+    @JsonIgnore
     @ManyToOne
     Universite universite;
 

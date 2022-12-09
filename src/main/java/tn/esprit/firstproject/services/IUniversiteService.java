@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import tn.esprit.firstproject.entities.Departement;
 import tn.esprit.firstproject.entities.Universite;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public interface IUniversiteService {
@@ -15,5 +15,7 @@ public interface IUniversiteService {
 
     void assignUniversiteToDepartement(Integer idUniv, Integer idDepart);
     List<Departement> retrieveDepartementsByUniversite(Integer idUniversite);
+
+    Universite addUniversiteWithDepartement(Universite universite, Set<Departement> departements);
 
 }

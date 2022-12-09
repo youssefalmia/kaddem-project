@@ -6,7 +6,7 @@ import tn.esprit.firstproject.entities.Departement;
 import tn.esprit.firstproject.entities.Universite;
 import tn.esprit.firstproject.services.IUniversiteService;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +22,16 @@ public class UniversiteRestController {
     public Universite addUniversite(@RequestBody Universite universite){
         return iUniversiteService.addUniversite(universite);
     }
+
+    @PostMapping("/addWithDep")
+    public Universite addUniversiteWithDep(@RequestBody Universite universite) throws Exception {
+        Set<Departement> departementSet = new HashSet<>(universite.getDepartements());
+        if(departementSet.isEmpty()){
+            throw new Exception("can't add universite with emty deps");
+        }
+        return iUniversiteService.addUniversiteWithDepartement(universite,departementSet);
+    }
+
     @PutMapping ("/update")
     public Universite updateUni(@RequestBody Universite universite){
         return iUniversiteService.updateUniversite(universite);

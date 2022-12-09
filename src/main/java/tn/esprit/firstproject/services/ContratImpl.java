@@ -9,8 +9,7 @@ import tn.esprit.firstproject.enums.Specialite;
 import tn.esprit.firstproject.repositories.IContratRepository;
 import tn.esprit.firstproject.repositories.IEtudiantRepository;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -47,14 +46,25 @@ public class ContratImpl implements  IContratService {
 
     @Override
     public Integer nbContratsValides(Date startDate, Date endDate) {
+        // todo page 20
         return contratRepository.nbContratsValides(startDate,endDate);
     }
 
     @Override
-    public Contrat affectContratToEtudiant(Contrat ce, String nomE, String prenomE) {
-        Etudiant e = etudiantRepository.findEtudiantByPrenomEtNom(prenomE,nomE) ;
+    public Contrat affectContratToEtudiant(Contrat ce, String nomE, String prenomE) throws Exception {
+        Etudiant e = etudiantRepository.findEtudiantByPrenomEtNom(prenomE,nomE).get(0);
 
-        e.getContrats().add(ce);
+        Set<Contrat> contratSet = new HashSet<>();
+        contratSet.add(ce);
+        e.setContrats(contratSet);
+
+        // TODO PAGE 16
+        // Add a method to get how much contract the student have
+        if(contratRepository.nbContratsEtudiant(e.getIdEtudiant()) >= 5){
+            throw new Exception("Must have less than 5 contracts");
+        }
+
+
         ce.setEtudiant(e);
         contratRepository.save(ce);
         etudiantRepository.save(e);
@@ -62,6 +72,7 @@ public class ContratImpl implements  IContratService {
     }
     @Override
     public float getChiffreAffaireEntreDeuxDate(Date startDate, Date endDate) {
+        // TODO page 19
         List<Contrat> listContrat=contratRepository.contratBetween2dates(startDate,endDate);
         System.out.println(listContrat);
         float chiffre=0;

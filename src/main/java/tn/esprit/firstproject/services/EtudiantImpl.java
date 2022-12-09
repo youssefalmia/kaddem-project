@@ -14,15 +14,16 @@ import tn.esprit.firstproject.repositories.IDepartementRepository;
 import tn.esprit.firstproject.repositories.IEquipeRepository;
 import tn.esprit.firstproject.repositories.IEtudiantRepository;
 
-import java.util.List;
+import java.util.*;
+
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class EtudiantImpl implements IEtudiantService{
+public class EtudiantImpl implements IEtudiantService {
     @Autowired
-    private final IEtudiantRepository etudiantRepository ;
-@Autowired
-private final IContratRepository contratRepository;
+    private final IEtudiantRepository etudiantRepository;
+    @Autowired
+    private final IContratRepository contratRepository;
     @Autowired
     private final IEquipeRepository equipeRepository;
 
@@ -30,24 +31,27 @@ private final IContratRepository contratRepository;
     private final EquipeImpl equipeServices;
     @Autowired
     private final IDepartementRepository departementRepository;
+
     @Override
     public List<Etudiant> retrieveAllEtudiants() {
         log.debug("test");
         return (List<Etudiant>) etudiantRepository.findAll();
     }
-@Scheduled(cron="*/60 * * * * *")
-void test() {
-        log.info("hello");
-}
+
+//    @Scheduled(cron = "*/60 * * * * *")
+//    void test() {
+//        log.info("hello");
+//    }
+
     @Override
     public Etudiant addEtudiant(Etudiant etudiant) {
 
-        return etudiantRepository.save(etudiant) ;
+        return etudiantRepository.save(etudiant);
     }
 
     @Override
     public Etudiant updateEtudiant(Etudiant e) {
-        return etudiantRepository.save(e) ;
+        return etudiantRepository.save(e);
     }
 
     @Override
@@ -57,7 +61,7 @@ void test() {
 
     @Override
     public void removeEtudiant(Integer idEtudiant) {
-        etudiantRepository.deleteById(idEtudiant) ;
+        etudiantRepository.deleteById(idEtudiant);
     }
 
     @Override
@@ -69,31 +73,43 @@ void test() {
     public Etudiant getEtudiantById(Integer idEtudiant) {
         return etudiantRepository.findById(idEtudiant).orElse(null);
     }
-   public Etudiant addAndAssignEtudiantToEquipeAndContract(Etudiant e, Integer idContrat, Integer
-            idEquipe)
-   {
 
-       Contrat ce =  contratServices.retrieveContrat(idContrat);
-       Equipe eq = equipeServices.retrieveEquipe(idEquipe);
-       //ce.setEtudiant(e);
-       //contratRepository.save(ce);
-       ce.setEtudiant(e);
-       contratServices.updateContrat(ce);
-       eq.getEtudiants().add(e);
-       //e.getEquipes().add(eq);
-       //e.getContrats().add(ce);
+    public Etudiant addAndAssignEtudiantToEquipeAndContract(Etudiant e, Integer idContrat, Integer idEquipe) {
 
-       equipeServices.updateEquipe(eq);
-       etudiantRepository.save(e) ;
-return e;
-   }
+        Contrat ce = contratServices.retrieveContrat(idContrat);
+        Equipe eq = equipeServices.retrieveEquipe(idEquipe);
 
+        //Make an equie and contract set
+        Set<Equipe> equipeSet = new HashSet<>();
+        equipeSet.add(eq);
+
+        Set<Contrat> contratSet = new HashSet<>();
+        contratSet.add(ce);
+
+        // Update the etudiant using its setters
+        e.setEquipes(equipeSet);
+        e.setContrats(contratSet);
+
+        // Update the Contract
+        ce.setEtudiant(e);
+
+        Set<Etudiant> etudiantSet = new HashSet<>();
+        etudiantSet.add(e);
+        // update the equipe
+        eq.setEtudiants(etudiantSet);
+
+        // Start by saving the Etudiant
+        etudiantRepository.save(e);
+        contratServices.updateContrat(ce);
+        equipeServices.updateEquipe(eq);
+        return e;
+    }
 
 
     @Override
     public List<Etudiant> getEtudiantsByDepartement(Integer idDep) {
 
-        Departement dep = departementRepository.findById(idDep).orElse(null) ;
+        Departement dep = departementRepository.findById(idDep).orElse(null);
 
         return etudiantRepository.getEtudiantsByDepartement(dep.getIdDepart());
     }

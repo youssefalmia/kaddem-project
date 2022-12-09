@@ -8,9 +8,9 @@ import tn.esprit.firstproject.repositories.IEquipeRepository;
 import java.util.List;
 
 @Service
-public class EquipeImpl implements IEquipeService{
+public class EquipeImpl implements IEquipeService {
     @Autowired
-    IEquipeRepository equipeRepository ;
+    IEquipeRepository equipeRepository;
 
     @Override
     public List<Equipe> retrieveAllEquipes() {
@@ -30,6 +30,6 @@ public class EquipeImpl implements IEquipeService{
 
     @Override
     public Equipe retrieveEquipe(Integer idEquipe) {
-        return equipeRepository.findById(idEquipe).get() ;
+        return equipeRepository.findById(idEquipe).get();
     }
 }

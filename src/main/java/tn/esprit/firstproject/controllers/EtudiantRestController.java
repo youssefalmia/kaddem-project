@@ -24,6 +24,7 @@ public class EtudiantRestController {
         return etudiantService.addEtudiant((E)) ;
     }
 
+
     @PutMapping("/update")
     public Etudiant updateEtudiant(@RequestBody Etudiant E) {
         return etudiantService.updateEtudiant(E) ;
@@ -42,9 +43,9 @@ public class EtudiantRestController {
     public List<Etudiant> getByNamedep(@PathVariable("name") String name){
         return etudiantService.findEtudiantByDepartement(name);
     }
-    @GetMapping("/get/bydep")
+    @GetMapping("/get/byDep/{idDepart}")
      public List<Etudiant> getEtudiantsByDepartement (@PathVariable("idDepart") Integer idDep)
-    {
+    {   //TODO page 17
         return etudiantService.getEtudiantsByDepartement(idDep);
 
     }

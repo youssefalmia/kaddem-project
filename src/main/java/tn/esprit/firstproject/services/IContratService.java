@@ -16,7 +16,7 @@ public interface IContratService {
 
     Integer nbContratsValides(Date startDate, Date endDate);
 
-    Contrat affectContratToEtudiant(Contrat ce, String nomE, String prenomE);
+    Contrat affectContratToEtudiant(Contrat ce, String nomE, String prenomE) throws Exception;
 
     float getChiffreAffaireEntreDeuxDate(Date startDate, Date endDate);
 

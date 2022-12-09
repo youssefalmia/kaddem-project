@@ -18,7 +18,7 @@ public class Universite  implements Serializable {
     private Integer idUniv ;
     private String nom ;
 
-    @JsonIgnore
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "universite")
     private Set<Departement> departements;
 }

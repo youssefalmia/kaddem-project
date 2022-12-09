@@ -46,7 +46,7 @@ public class ContratRestController {
     @PutMapping("/{idContrat}/{idEtudiant}")
     Contrat aasignContratToEtudiant(
             @PathVariable("idContrat") Integer idContrat,
-            @PathVariable("idEtudiant") Integer idEtudiant){
+            @PathVariable("idEtudiant") Integer idEtudiant) throws Exception {
         Contrat ce = iContratService.retrieveContrat(idContrat);
         Etudiant etudiant = iEtudiantService.getEtudiantById(idEtudiant);
         return iContratService.affectContratToEtudiant(ce, etudiant.getNom(), etudiant.getPrenom());
