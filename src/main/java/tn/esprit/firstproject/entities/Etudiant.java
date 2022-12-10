@@ -25,7 +25,7 @@ public class Etudiant implements Serializable {
     Departement departement;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "etudiant")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "etudiant", fetch = FetchType.EAGER)
     private Set<Contrat> contrats ;
 
     @JsonIgnore

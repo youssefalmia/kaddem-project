@@ -38,10 +38,10 @@ public class EtudiantImpl implements IEtudiantService {
         return (List<Etudiant>) etudiantRepository.findAll();
     }
 
-//    @Scheduled(cron = "*/60 * * * * *")
-//    void test() {
-//        log.info("hello");
-//    }
+    @Scheduled(cron = "0 12 13 * * *")
+    void test() {
+        log.info("hello");
+    }
 
     @Override
     public Etudiant addEtudiant(Etudiant etudiant) {
