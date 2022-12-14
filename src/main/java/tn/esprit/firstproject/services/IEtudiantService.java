@@ -2,6 +2,7 @@ package tn.esprit.firstproject.services;
 
 import org.springframework.stereotype.Service;
 import tn.esprit.firstproject.entities.Departement;
+import tn.esprit.firstproject.entities.Equipe;
 import tn.esprit.firstproject.entities.Etudiant;
 
 import java.util.List;
@@ -16,6 +17,11 @@ public interface IEtudiantService {
     List<Etudiant> findEtudiantByDepartement(String nomDep);
 
     Etudiant getEtudiantById(Integer idEtudiant);
+
+    List<Equipe> getTeamsByStudent(Integer id);
+
+    Etudiant assignToTeams(Integer idE, List<Integer> equipesIds);
+
     Etudiant addAndAssignEtudiantToEquipeAndContract(Etudiant e, Integer idContrat, Integer
             idEquipe);
 

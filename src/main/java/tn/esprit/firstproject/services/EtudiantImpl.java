@@ -3,7 +3,6 @@ package tn.esprit.firstproject.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.firstproject.entities.Contrat;
 import tn.esprit.firstproject.entities.Departement;
@@ -72,6 +71,32 @@ public class EtudiantImpl implements IEtudiantService {
     @Override
     public Etudiant getEtudiantById(Integer idEtudiant) {
         return etudiantRepository.findById(idEtudiant).orElse(null);
+    }
+
+
+    @Override
+    public List<Equipe> getTeamsByStudent(Integer id){
+        return etudiantRepository.retrieveEquipeByEtudiant(id);
+    }
+
+    @Override
+    public Etudiant assignToTeams(Integer idE, List<Integer> equipesIds){
+
+        Etudiant e= this.getEtudiantById(idE);
+
+        Set<Equipe> equipeSet = new HashSet<>();
+        Set<Etudiant> etudiantSet = new HashSet<>();
+        etudiantSet.add(e);
+        for (Integer id: equipesIds){
+            Equipe equipe= equipeServices.retrieveEquipe(id);
+            equipe.setEtudiants(etudiantSet);
+            equipeSet.add(equipe);
+            equipeServices.updateEquipe(equipe);
+        }
+        e.setEquipes(equipeSet);
+
+        etudiantRepository.save(e);
+        return e;
     }
 
     public Etudiant addAndAssignEtudiantToEquipeAndContract(Etudiant e, Integer idContrat, Integer idEquipe) {

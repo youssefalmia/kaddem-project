@@ -2,6 +2,7 @@ package tn.esprit.firstproject.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.firstproject.entities.Equipe;
 import tn.esprit.firstproject.entities.Etudiant;
 import tn.esprit.firstproject.services.IEquipeService;
 import tn.esprit.firstproject.services.IEtudiantService;
@@ -56,4 +57,14 @@ public class EtudiantRestController {
         etudiantService.addAndAssignEtudiantToEquipeAndContract(E,idContrat,idEquipe);
     }
 
+    @PutMapping("/assignToTeams/{idEt}")
+    public void assignToTeams(@PathVariable("idEt") Integer idEt,
+                           @RequestBody List<Integer> equipesIds){
+        etudiantService.assignToTeams(idEt, equipesIds);
+    }
+
+    @GetMapping("/getTeams/{idEt}")
+    public List<Equipe> getTeamsByEt(@PathVariable("idEt") Integer idEt){
+        return etudiantService.getTeamsByStudent(idEt);
+    }
 }

@@ -2,6 +2,7 @@ package tn.esprit.firstproject.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,11 +19,21 @@ public class Departement  implements Serializable {
     private Integer idDepart ;
     private String nomDepart ;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
-    Universite universite;
+    @Getter(AccessLevel.NONE)
+    private Universite universite;
+
+    public Universite getUniversite(){
+        if (universite != null){
+            Universite uni= universite;
+            uni.setDepartements(null);
+            return uni;
+        }
+        return new Universite();
+    }
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "departement")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "departement")
     private Set<Etudiant> etudiants ;
 }

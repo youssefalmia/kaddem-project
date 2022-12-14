@@ -20,9 +20,9 @@ public class Equipe  implements Serializable {
     @Enumerated(EnumType.STRING)
     private Niveau niveau ;
 
-    @ManyToMany(mappedBy = "equipes", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "equipes", cascade = CascadeType.REMOVE)
     private Set<Etudiant> etudiants ;
 
-    @OneToOne
+    @OneToOne( cascade = CascadeType.REMOVE)
     private DetailEquipe detailEquipe ;
 }

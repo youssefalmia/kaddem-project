@@ -19,6 +19,6 @@ public class DetailEquipe  implements Serializable {
     private String thematique;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "detailEquipe")
+    @OneToOne(mappedBy = "detailEquipe", cascade = CascadeType.REMOVE)
     private Equipe equipe ;
 }

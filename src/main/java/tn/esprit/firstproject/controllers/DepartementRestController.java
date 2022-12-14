@@ -15,7 +15,6 @@ import java.util.List;
 public class DepartementRestController {
     private final IDepartementService iDepartementService;
     @GetMapping("/get/{id-dep}")
-
     public Departement getById(@PathVariable("id-dep") Integer id){
         return iDepartementService.retrieveDepartement(id);
     }

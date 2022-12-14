@@ -21,7 +21,7 @@ public class Etudiant implements Serializable {
     @Enumerated(EnumType.STRING)
     private Option optionEtudiant ;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     Departement departement;
 
     @JsonIgnore
@@ -29,6 +29,6 @@ public class Etudiant implements Serializable {
     private Set<Contrat> contrats ;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.REMOVE)
     private Set<Equipe> equipes ;
 }
